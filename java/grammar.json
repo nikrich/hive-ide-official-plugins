@@ -1,0 +1,79 @@
+{
+  "defaultToken": "",
+  "tokenPostfix": ".java",
+  "keywords": [
+    "abstract", "assert", "boolean", "break", "byte", "case", "catch",
+    "char", "class", "const", "continue", "default", "do", "double",
+    "else", "enum", "extends", "final", "finally", "float", "for",
+    "goto", "if", "implements", "import", "instanceof", "int",
+    "interface", "long", "native", "new", "non-sealed", "package",
+    "permits", "private", "protected", "public", "record", "return",
+    "sealed", "short", "static", "strictfp", "super", "switch",
+    "synchronized", "this", "throw", "throws", "transient", "try",
+    "var", "void", "volatile", "while", "yield"
+  ],
+  "typeKeywords": [
+    "boolean", "byte", "char", "double", "float", "int", "long",
+    "short", "void"
+  ],
+  "literals": [
+    "true", "false", "null"
+  ],
+  "operators": [
+    "=", ">", "<", "!", "~", "?", ":", "==", "<=", ">=", "!=",
+    "&&", "||", "++", "--", "+", "-", "*", "/", "&", "|", "^",
+    "%", "<<", ">>", ">>>", "+=", "-=", "*=", "/=", "&=", "|=",
+    "^=", "%=", "<<=", ">>=", ">>>=", "->", "::"
+  ],
+  "symbols": "[=><!~?:&|+\\-*/^%]+",
+  "escapes": "\\\\(?:[abfnrtv\\\\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|[0-7]{1,3})",
+  "tokenizer": {
+    "root": [
+      ["[a-z_$][\\w$]*", {
+        "cases": {
+          "@keywords": "keyword",
+          "@typeKeywords": "keyword.type",
+          "@literals": "keyword.literal",
+          "@default": "identifier"
+        }
+      }],
+      ["[A-Z][\\w\\$]*", "type.identifier"],
+      { "include": "@whitespace" },
+      ["[{}()\\[\\]]", "@brackets"],
+      ["[<>](?!@symbols)", "@brackets"],
+      ["@symbols", {
+        "cases": {
+          "@operators": "operator",
+          "@default": ""
+        }
+      }],
+      ["@?[a-zA-Z][\\w$]*", "annotation"],
+      ["\\d*\\.\\d+([eE][\\-+]?\\d+)?[fFdD]?", "number.float"],
+      ["0[xX][0-9a-fA-F_]+[lL]?", "number.hex"],
+      ["0[bB][01_]+[lL]?", "number.binary"],
+      ["\\d+[lLfFdD]?", "number"],
+      ["[;,.]", "delimiter"],
+      ["\"([^\"\\\\]|\\\\.)*$", "string.invalid"],
+      ["\"", { "token": "string.quote", "bracket": "@open", "next": "@string" }],
+      ["'[^\\\\']'", "string"],
+      ["'(\\\\.)'", "string.escape"],
+      ["'", "string.invalid"]
+    ],
+    "whitespace": [
+      ["[ \\t\\r\\n]+", "white"],
+      ["/\\*", "comment", "@comment"],
+      ["//.*$", "comment"]
+    ],
+    "comment": [
+      ["[^/*]+", "comment"],
+      ["\\*/", "comment", "@pop"],
+      ["[/*]", "comment"]
+    ],
+    "string": [
+      ["[^\\\\\"]+", "string"],
+      ["@escapes", "string.escape"],
+      ["\\\\.", "string.escape.invalid"],
+      ["\"", { "token": "string.quote", "bracket": "@close", "next": "@pop" }]
+    ]
+  }
+}

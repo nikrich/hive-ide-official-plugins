@@ -1,0 +1,48 @@
+name: Release plugin
+on:
+  push:
+    tags: ['*-v*']
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse tag
+        id: parse
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          # Validate tag shape: <name>-v<version>, name is [A-Za-z0-9._-]+,
+          # version starts with a digit. Anything else is rejected.
+          if ! [[ "$TAG" =~ ^([A-Za-z0-9._-]+)-v([0-9][A-Za-z0-9.+-]*)$ ]]; then
+            echo "Tag '$TAG' does not match expected '<name>-v<version>' pattern." >&2
+            exit 1
+          fi
+          NAME="${BASH_REMATCH[1]}"
+          VERSION="${BASH_REMATCH[2]}"
+          # Reject path-traversal in name; the tag was validated above but
+          # be paranoid before using it as a directory.
+          case "$NAME" in
+            *..*|*/*|.*) echo "Refusing suspicious name '$NAME'." >&2; exit 1 ;;
+          esac
+          if [ ! -d "$NAME" ]; then
+            echo "Tag '$TAG' points at folder '$NAME/' which does not exist." >&2
+            exit 1
+          fi
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+      - name: Build tarball
+        env:
+          NAME: ${{ steps.parse.outputs.name }}
+          VERSION: ${{ steps.parse.outputs.version }}
+        run: |
+          cd "$NAME"
+          tar -czf "../${NAME}-${VERSION}.tar.gz" .
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "${{ steps.parse.outputs.name }}-${{ steps.parse.outputs.version }}.tar.gz"
+          name: "${{ steps.parse.outputs.name }} ${{ steps.parse.outputs.version }}"
+          generate_release_notes: true
