@@ -1,0 +1,70 @@
+{
+  "id": "hive-ide-official-plugins/terraform",
+  "name": "Terraform",
+  "version": "0.1.0",
+  "description": "Terraform/HCL language support via terraform-ls (HashiCorp). Bundles the language server; no extra runtime required.",
+  "publisher": "hive-ide-official-plugins",
+  "engines": {
+    "hive": "^0.1.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "terraform",
+        "extensions": [
+          ".tf",
+          ".tfvars"
+        ],
+        "aliases": [
+          "Terraform",
+          "HCL"
+        ],
+        "configuration": "./language-configuration.json",
+        "grammar": "./grammar.json"
+      }
+    ],
+    "languageServers": [
+      {
+        "language": "terraform",
+        "command": "${pluginDir}/launch.sh",
+        "args": [],
+        "transport": "stdio",
+        "cwd": "${pluginDir}"
+      }
+    ]
+  },
+  "setup": {
+    "downloads": [
+      {
+        "url": "https://releases.hashicorp.com/terraform-ls/0.38.6/terraform-ls_0.38.6_darwin_amd64.zip",
+        "extractTo": "./server/darwin_amd64",
+        "sha256": "9c13350a6d99e48ab6ecaa0b8ad0fe52b7f5651a161091d2ee5d19fba3b25bf6",
+        "archive": "zip"
+      },
+      {
+        "url": "https://releases.hashicorp.com/terraform-ls/0.38.6/terraform-ls_0.38.6_darwin_arm64.zip",
+        "extractTo": "./server/darwin_arm64",
+        "sha256": "ec1e20208ce7da55dc8798e280cc363535793e8827b6f97801184d7f21b2d08b",
+        "archive": "zip"
+      },
+      {
+        "url": "https://releases.hashicorp.com/terraform-ls/0.38.6/terraform-ls_0.38.6_linux_amd64.zip",
+        "extractTo": "./server/linux_amd64",
+        "sha256": "79877f94a8eb175e6a58cf177839b0801acbfeccf968a2102e95d470fa3ad4a5",
+        "archive": "zip"
+      },
+      {
+        "url": "https://releases.hashicorp.com/terraform-ls/0.38.6/terraform-ls_0.38.6_linux_arm64.zip",
+        "extractTo": "./server/linux_arm64",
+        "sha256": "a44b3df099f0ad8e88c96ea1110f965affee6e69b68ec44df25a593f5ee66cf3",
+        "archive": "zip"
+      },
+      {
+        "url": "https://releases.hashicorp.com/terraform-ls/0.38.6/terraform-ls_0.38.6_windows_amd64.zip",
+        "extractTo": "./server/windows_amd64",
+        "sha256": "8dcc3a23a8166f5942575d64f6ff5467f6d501fa72bff89941b8cbaeb5ee3de2",
+        "archive": "zip"
+      }
+    ]
+  }
+}
