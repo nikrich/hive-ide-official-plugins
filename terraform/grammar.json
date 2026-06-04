@@ -1,0 +1,80 @@
+{
+  "defaultToken": "",
+  "tokenPostfix": ".tf",
+  "blockKeywords": [
+    "resource", "data", "variable", "output", "module", "provider",
+    "terraform", "locals", "moved", "import", "check", "removed"
+  ],
+  "keywords": [
+    "for", "in", "if", "else", "endfor", "endif"
+  ],
+  "literals": ["true", "false", "null"],
+  "symbols": "[=><!~?:&|+\\-*/^%]+",
+  "operators": [
+    "=", ">", "<", "!", "~", "?", ":", "==", "<=", ">=", "!=",
+    "&&", "||", "+", "-", "*", "/", "%", "=>"
+  ],
+  "escapes": "\\\\(?:[nrt\\\\\"]|u[0-9A-Fa-f]{4})",
+  "tokenizer": {
+    "root": [
+      ["[a-zA-Z_]\\w*(?=\\s*=[^=])", "variable"],
+      ["[a-zA-Z_]\\w*", {
+        "cases": {
+          "@blockKeywords": "keyword",
+          "@keywords": "keyword",
+          "@literals": "keyword.literal",
+          "@default": "identifier"
+        }
+      }],
+      { "include": "@whitespace" },
+      ["[{}()\\[\\]]", "@brackets"],
+      ["@symbols", {
+        "cases": {
+          "@operators": "operator",
+          "@default": ""
+        }
+      }],
+      ["\\d+\\.\\d+([eE][\\-+]?\\d+)?", "number.float"],
+      ["\\d+", "number"],
+      ["[;,.]", "delimiter"],
+      ["<<[-]?(\\w+)", { "token": "string.heredoc.delimiter", "next": "@heredoc.$1" }],
+      ["\"", { "token": "string.quote", "bracket": "@open", "next": "@string" }]
+    ],
+    "whitespace": [
+      ["[ \\t\\r\\n]+", "white"],
+      ["#.*$", "comment"],
+      ["//.*$", "comment"],
+      ["/\\*", "comment", "@comment"]
+    ],
+    "comment": [
+      ["[^/*]+", "comment"],
+      ["\\*/", "comment", "@pop"],
+      ["[/*]", "comment"]
+    ],
+    "string": [
+      ["\\$\\{", { "token": "delimiter.interpolation", "next": "@interp" }],
+      ["[^\\\\\"$]+", "string"],
+      ["@escapes", "string.escape"],
+      ["\\\\.", "string.escape.invalid"],
+      ["\\$(?!\\{)", "string"],
+      ["\"", { "token": "string.quote", "bracket": "@close", "next": "@pop" }]
+    ],
+    "interp": [
+      ["\\}", { "token": "delimiter.interpolation", "next": "@pop" }],
+      ["\"", { "token": "string.quote", "bracket": "@open", "next": "@string" }],
+      ["[a-zA-Z_]\\w*", "identifier"],
+      ["@symbols", "operator"],
+      ["[.,()\\[\\]]", "delimiter"],
+      ["\\d+", "number"]
+    ],
+    "heredoc": [
+      ["^\\s*([A-Za-z_]\\w*)\\s*$", {
+        "cases": {
+          "$1==$S2": { "token": "string.heredoc.delimiter", "next": "@pop" },
+          "@default": "string.heredoc"
+        }
+      }],
+      [".*$", "string.heredoc"]
+    ]
+  }
+}
