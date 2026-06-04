@@ -111,7 +111,7 @@ plugin.
 ### grammar.json (Monarch / HCL)
 
 - `blockKeywords`: `resource`, `data`, `variable`, `output`, `module`,
-  `provider`, `terraform`, `locals`, `moved`, `import`, `check`.
+  `provider`, `terraform`, `locals`, `moved`, `import`, `check`, `removed`.
 - `keywords`: `for`, `in`, `if`, `else`, `endfor`, `endif`.
 - `literals`: `true`, `false`, `null`.
 - Comments: `#` and `//` line, `/* */` block.

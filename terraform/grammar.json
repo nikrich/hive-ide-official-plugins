@@ -61,6 +61,7 @@
     ],
     "interp": [
       ["\\}", { "token": "delimiter.interpolation", "next": "@pop" }],
+      ["\"", { "token": "string.quote", "bracket": "@open", "next": "@string" }],
       ["[a-zA-Z_]\\w*", "identifier"],
       ["@symbols", "operator"],
       ["[.,()\\[\\]]", "delimiter"],
