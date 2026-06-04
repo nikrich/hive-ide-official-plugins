@@ -7,6 +7,7 @@ Official plugins for [Hive IDE](https://github.com/nikrich/hive-ide).
 | Plugin | Folder | Latest release tag |
 |---|---|---|
 | Java (jdtls) | [`java/`](./java) | `java-v0.1.0` |
+| Terraform (terraform-ls) | [`terraform/`](./terraform) | `terraform-v0.1.0` |
 | Hello (example) | [`examples/hello-plugin/`](./examples/hello-plugin) | — |
 
 ## Installing
