@@ -54,12 +54,14 @@
       ["[bBfFrRuU]*'", { "token": "string.quote", "next": "@sqstring" }]
     ],
     "tdqstring": [
-      ["[^\"]+", "string"],
+      ["\\\\.", "string.escape"],
+      ["[^\\\\\"]+", "string"],
       ["\"\"\"", { "token": "string.quote", "next": "@pop" }],
       ["\"", "string"]
     ],
     "tsqstring": [
-      ["[^']+", "string"],
+      ["\\\\.", "string.escape"],
+      ["[^\\\\']+", "string"],
       ["'''", { "token": "string.quote", "next": "@pop" }],
       ["'", "string"]
     ],
