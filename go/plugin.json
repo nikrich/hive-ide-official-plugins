@@ -1,0 +1,33 @@
+{
+  "id": "hive-ide-official-plugins/go",
+  "name": "Go",
+  "version": "0.1.0",
+  "description": "Go language support via gopls (the official Go language server). Requires the Go toolchain and gopls installed on PATH; not bundled.",
+  "publisher": "hive-ide-official-plugins",
+  "engines": {
+    "hive": "^0.1.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "go",
+        "extensions": [
+          ".go"
+        ],
+        "aliases": [
+          "Go"
+        ],
+        "configuration": "./language-configuration.json",
+        "grammar": "./grammar.json"
+      }
+    ],
+    "languageServers": [
+      {
+        "language": "go",
+        "command": "${pluginDir}/launch.sh",
+        "args": [],
+        "transport": "stdio"
+      }
+    ]
+  }
+}
