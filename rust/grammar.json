@@ -1,0 +1,82 @@
+{
+  "defaultToken": "",
+  "tokenPostfix": ".rust",
+  "keywords": [
+    "as", "async", "await", "break", "const", "continue", "crate", "dyn",
+    "else", "enum", "extern", "false", "fn", "for", "if", "impl", "in",
+    "let", "loop", "match", "mod", "move", "mut", "pub", "ref", "return",
+    "self", "Self", "static", "struct", "super", "trait", "true", "type",
+    "unsafe", "use", "where", "while"
+  ],
+  "literals": ["true", "false"],
+  "builtins": [
+    "bool", "char", "str", "i8", "i16", "i32", "i64", "i128", "isize",
+    "u8", "u16", "u32", "u64", "u128", "usize", "f32", "f64",
+    "String", "Vec", "Option", "Result", "Box", "Some", "None", "Ok", "Err"
+  ],
+  "brackets": [
+    { "open": "{", "close": "}", "token": "delimiter.curly" },
+    { "open": "[", "close": "]", "token": "delimiter.square" },
+    { "open": "(", "close": ")", "token": "delimiter.parenthesis" }
+  ],
+  "tokenizer": {
+    "root": [
+      ["#!?\\[", { "token": "tag", "next": "@attribute" }],
+      ["'(?:[a-zA-Z_][a-zA-Z0-9_]*)(?![a-zA-Z0-9_'])", "type"],
+      ["[a-zA-Z_]\\w*!", "keyword"],
+      ["[a-zA-Z_]\\w*", {
+        "cases": {
+          "@keywords": "keyword",
+          "@literals": "keyword.literal",
+          "@builtins": "type.identifier",
+          "@default": "identifier"
+        }
+      }],
+      { "include": "@whitespace" },
+      { "include": "@numbers" },
+      { "include": "@strings" },
+      ["[{}()\\[\\]]", "@brackets"],
+      ["::", "delimiter"],
+      ["[;,.]", "delimiter"],
+      ["[=><!~?:&|+\\-*/^%]+", "operator"]
+    ],
+    "attribute": [
+      ["[^\\[\\]]+", "tag"],
+      ["\\[", { "token": "tag", "next": "@attribute" }],
+      ["\\]", { "token": "tag", "next": "@pop" }]
+    ],
+    "whitespace": [
+      ["[ \\t\\r\\n]+", "white"],
+      ["//.*$", "comment"],
+      ["/\\*", { "token": "comment", "next": "@blockComment" }]
+    ],
+    "blockComment": [
+      ["[^/*]+", "comment"],
+      ["/\\*", { "token": "comment", "next": "@blockComment" }],
+      ["\\*/", { "token": "comment", "next": "@pop" }],
+      ["[/*]", "comment"]
+    ],
+    "numbers": [
+      ["0[xX][0-9a-fA-F_]+(?:[iu](?:8|16|32|64|128|size))?", "number.hex"],
+      ["0[oO][0-7_]+(?:[iu](?:8|16|32|64|128|size))?", "number.octal"],
+      ["0[bB][01_]+(?:[iu](?:8|16|32|64|128|size))?", "number.binary"],
+      ["\\d[\\d_]*\\.\\d[\\d_]*(?:[eE][\\-+]?\\d+)?(?:f32|f64)?", "number.float"],
+      ["\\d[\\d_]*(?:[eE][\\-+]?\\d+)(?:f32|f64)?", "number.float"],
+      ["\\d[\\d_]*(?:[iu](?:8|16|32|64|128|size)|f32|f64)?", "number"]
+    ],
+    "strings": [
+      ["b?r#*\"", { "token": "string.quote", "next": "@rawstring" }],
+      ["b?\"", { "token": "string.quote", "next": "@string" }],
+      ["b?'(?:[^'\\\\]|\\\\.)'", "string"]
+    ],
+    "string": [
+      ["[^\\\\\"]+", "string"],
+      ["\\\\.", "string.escape"],
+      ["\"", { "token": "string.quote", "next": "@pop" }]
+    ],
+    "rawstring": [
+      ["[^\"]+", "string"],
+      ["\"#*", { "token": "string.quote", "next": "@pop" }]
+    ]
+  }
+}
