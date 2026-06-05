@@ -1,0 +1,67 @@
+{
+  "id": "hive-ide-official-plugins/typescript",
+  "name": "TypeScript / JavaScript",
+  "version": "0.1.0",
+  "description": "TypeScript and JavaScript language support via typescript-language-server (bundles tsserver). Requires Node.js 20+ on PATH.",
+  "publisher": "hive-ide-official-plugins",
+  "engines": {
+    "hive": "^0.1.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "typescript",
+        "extensions": [".ts"],
+        "aliases": ["TypeScript"],
+        "configuration": "./language-configuration.json",
+        "grammar": "./grammar.json"
+      },
+      {
+        "id": "typescriptreact",
+        "extensions": [".tsx"],
+        "aliases": ["TypeScript React"],
+        "configuration": "./language-configuration.json",
+        "grammar": "./grammar.json"
+      },
+      {
+        "id": "javascript",
+        "extensions": [".js", ".mjs", ".cjs"],
+        "aliases": ["JavaScript"],
+        "configuration": "./language-configuration.json",
+        "grammar": "./grammar.json"
+      },
+      {
+        "id": "javascriptreact",
+        "extensions": [".jsx"],
+        "aliases": ["JavaScript React"],
+        "configuration": "./language-configuration.json",
+        "grammar": "./grammar.json"
+      }
+    ],
+    "languageServers": [
+      {
+        "language": "typescript",
+        "command": "${pluginDir}/launch.sh",
+        "args": [],
+        "transport": "stdio",
+        "cwd": "${pluginDir}"
+      }
+    ]
+  },
+  "setup": {
+    "downloads": [
+      {
+        "url": "https://registry.npmjs.org/typescript-language-server/-/typescript-language-server-5.3.0.tgz",
+        "extractTo": "./server/tls",
+        "sha256": "398cacc17fff2108652e7b4050e3182008d17063246b3fea7dcf5fae2ce1560e",
+        "archive": "tar.gz"
+      },
+      {
+        "url": "https://registry.npmjs.org/typescript/-/typescript-6.0.3.tgz",
+        "extractTo": "./server/ts",
+        "sha256": "33cd0ee1beaa8c9e9d15a9da836c62ddea4c34a42d7c2d349dbc80d94165d22a",
+        "archive": "tar.gz"
+      }
+    ]
+  }
+}
