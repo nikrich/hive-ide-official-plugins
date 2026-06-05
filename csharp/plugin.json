@@ -27,8 +27,7 @@
         "language": "csharp",
         "command": "${pluginDir}/launch.sh",
         "args": [],
-        "transport": "stdio",
-        "cwd": "${pluginDir}"
+        "transport": "stdio"
       }
     ]
   },
