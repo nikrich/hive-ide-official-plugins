@@ -1,0 +1,68 @@
+{
+  "id": "hive-ide-official-plugins/rust",
+  "name": "Rust",
+  "version": "0.1.0",
+  "description": "Rust language support via rust-analyzer. Downloads a prebuilt rust-analyzer binary per platform; a Rust toolchain (rustup/cargo) on PATH is recommended for full analysis.",
+  "publisher": "hive-ide-official-plugins",
+  "engines": {
+    "hive": "^0.1.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "rust",
+        "extensions": [
+          ".rs"
+        ],
+        "aliases": [
+          "Rust"
+        ],
+        "configuration": "./language-configuration.json",
+        "grammar": "./grammar.json"
+      }
+    ],
+    "languageServers": [
+      {
+        "language": "rust",
+        "command": "${pluginDir}/launch.sh",
+        "args": [],
+        "transport": "stdio",
+        "cwd": "${pluginDir}"
+      }
+    ]
+  },
+  "setup": {
+    "downloads": [
+      {
+        "url": "https://github.com/rust-lang/rust-analyzer/releases/download/2026-06-01/rust-analyzer-aarch64-apple-darwin.gz",
+        "extractTo": "./server/darwin_arm64",
+        "sha256": "e3f859bc11c7b54035c9dc3612c3353f8599f39845412b737e6423fd4f51deaa",
+        "archive": "none"
+      },
+      {
+        "url": "https://github.com/rust-lang/rust-analyzer/releases/download/2026-06-01/rust-analyzer-x86_64-apple-darwin.gz",
+        "extractTo": "./server/darwin_amd64",
+        "sha256": "df97badb5c7c303bc2a0d51a443ed877fd93770fbb132d93d0bc400a057ca7cb",
+        "archive": "none"
+      },
+      {
+        "url": "https://github.com/rust-lang/rust-analyzer/releases/download/2026-06-01/rust-analyzer-x86_64-unknown-linux-gnu.gz",
+        "extractTo": "./server/linux_amd64",
+        "sha256": "1f243cefae24b9e7a0392f2369810d1d82b31d4fa7e07eb95a3465528cc2e1cb",
+        "archive": "none"
+      },
+      {
+        "url": "https://github.com/rust-lang/rust-analyzer/releases/download/2026-06-01/rust-analyzer-aarch64-unknown-linux-gnu.gz",
+        "extractTo": "./server/linux_arm64",
+        "sha256": "fb001e2aef500b05fe316d9169cda0259850b03d5e61a46e9232684fa4290883",
+        "archive": "none"
+      },
+      {
+        "url": "https://github.com/rust-lang/rust-analyzer/releases/download/2026-06-01/rust-analyzer-x86_64-pc-windows-msvc.zip",
+        "extractTo": "./server/windows_amd64",
+        "sha256": "0c361771bd0d85cf9d2227d726d5c2b3cab034e1ad7e460f659f38c41d9395e8",
+        "archive": "zip"
+      }
+    ]
+  }
+}
