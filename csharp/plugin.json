@@ -1,0 +1,69 @@
+{
+  "id": "hive-ide-official-plugins/csharp",
+  "name": "C#",
+  "version": "0.1.0",
+  "description": "C# language support via OmniSharp-roslyn. Bundles the language server; requires the .NET 6+ runtime on PATH.",
+  "publisher": "hive-ide-official-plugins",
+  "engines": {
+    "hive": "^0.1.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "csharp",
+        "extensions": [
+          ".cs",
+          ".csx"
+        ],
+        "aliases": [
+          "C#"
+        ],
+        "configuration": "./language-configuration.json",
+        "grammar": "./grammar.json"
+      }
+    ],
+    "languageServers": [
+      {
+        "language": "csharp",
+        "command": "${pluginDir}/launch.sh",
+        "args": [],
+        "transport": "stdio",
+        "cwd": "${pluginDir}"
+      }
+    ]
+  },
+  "setup": {
+    "downloads": [
+      {
+        "url": "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v1.39.15/omnisharp-osx-arm64-net6.0.zip",
+        "extractTo": "./server/darwin_arm64",
+        "sha256": "<compute>",
+        "archive": "zip"
+      },
+      {
+        "url": "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v1.39.15/omnisharp-osx-x64-net6.0.zip",
+        "extractTo": "./server/darwin_amd64",
+        "sha256": "<compute>",
+        "archive": "zip"
+      },
+      {
+        "url": "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v1.39.15/omnisharp-linux-x64-net6.0.zip",
+        "extractTo": "./server/linux_amd64",
+        "sha256": "<compute>",
+        "archive": "zip"
+      },
+      {
+        "url": "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v1.39.15/omnisharp-linux-arm64-net6.0.zip",
+        "extractTo": "./server/linux_arm64",
+        "sha256": "<compute>",
+        "archive": "zip"
+      },
+      {
+        "url": "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v1.39.15/omnisharp-win-x64-net6.0.zip",
+        "extractTo": "./server/windows_amd64",
+        "sha256": "<compute>",
+        "archive": "zip"
+      }
+    ]
+  }
+}
