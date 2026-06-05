@@ -1,0 +1,76 @@
+{
+  "defaultToken": "",
+  "tokenPostfix": ".go",
+  "keywords": [
+    "break", "case", "chan", "const", "continue", "default", "defer",
+    "else", "fallthrough", "for", "func", "go", "goto", "if", "import",
+    "interface", "map", "package", "range", "return", "select", "struct",
+    "switch", "type", "var"
+  ],
+  "typeKeywords": [
+    "bool", "byte", "complex64", "complex128", "error", "float32",
+    "float64", "int", "int8", "int16", "int32", "int64", "rune", "string",
+    "uint", "uint8", "uint16", "uint32", "uint64", "uintptr"
+  ],
+  "literals": ["true", "false", "nil", "iota"],
+  "brackets": [
+    { "open": "{", "close": "}", "token": "delimiter.curly" },
+    { "open": "[", "close": "]", "token": "delimiter.square" },
+    { "open": "(", "close": ")", "token": "delimiter.parenthesis" }
+  ],
+  "tokenizer": {
+    "root": [
+      ["[a-zA-Z_]\\w*", {
+        "cases": {
+          "@keywords": "keyword",
+          "@typeKeywords": "type.identifier",
+          "@literals": "keyword.literal",
+          "@default": "identifier"
+        }
+      }],
+      { "include": "@whitespace" },
+      { "include": "@numbers" },
+      { "include": "@strings" },
+      ["[{}()\\[\\]]", "@brackets"],
+      ["[;,.]", "delimiter"],
+      ["[=><!~?:&|+\\-*/^%]+", "operator"]
+    ],
+    "whitespace": [
+      ["[ \\t\\r\\n]+", "white"],
+      ["//.*$", "comment"],
+      ["/\\*", { "token": "comment", "next": "@comment" }]
+    ],
+    "comment": [
+      ["[^/*]+", "comment"],
+      ["\\*/", { "token": "comment", "next": "@pop" }],
+      ["[/*]", "comment"]
+    ],
+    "numbers": [
+      ["0[xX][0-9a-fA-F_]+", "number.hex"],
+      ["0[bB][01_]+", "number.binary"],
+      ["0[oO][0-7_]+", "number.octal"],
+      ["\\d[\\d_]*\\.\\d[\\d_]*([eE][\\-+]?\\d+)?i?", "number.float"],
+      ["\\d[\\d_]*([eE][\\-+]?\\d+)?i?", "number"]
+    ],
+    "strings": [
+      ["\"", { "token": "string.quote", "next": "@dqstring" }],
+      ["`", { "token": "string.quote", "next": "@rawstring" }],
+      ["'", { "token": "string.quote", "next": "@rune" }]
+    ],
+    "dqstring": [
+      ["[^\\\\\"]+", "string"],
+      ["\\\\.", "string.escape"],
+      ["\"", { "token": "string.quote", "next": "@pop" }],
+      ["$", "string", "@pop"]
+    ],
+    "rawstring": [
+      ["[^`]+", "string"],
+      ["`", { "token": "string.quote", "next": "@pop" }]
+    ],
+    "rune": [
+      ["\\\\.", "string.escape"],
+      ["[^\\\\']", "string"],
+      ["'", { "token": "string.quote", "next": "@pop" }]
+    ]
+  }
+}
