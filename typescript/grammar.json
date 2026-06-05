@@ -1,0 +1,83 @@
+{
+  "defaultToken": "",
+  "tokenPostfix": ".ts",
+  "keywords": [
+    "abstract", "any", "as", "async", "await", "boolean", "break", "case",
+    "catch", "class", "const", "continue", "debugger", "declare", "default",
+    "delete", "do", "else", "enum", "export", "extends", "false", "finally",
+    "for", "from", "function", "get", "if", "implements", "import", "in",
+    "infer", "instanceof", "interface", "is", "keyof", "let", "namespace",
+    "never", "new", "null", "number", "object", "of", "private", "protected",
+    "public", "readonly", "return", "set", "static", "string", "super",
+    "switch", "symbol", "this", "throw", "true", "try", "type", "typeof",
+    "undefined", "union", "unknown", "var", "void", "while", "yield"
+  ],
+  "brackets": [
+    { "open": "{", "close": "}", "token": "delimiter.curly" },
+    { "open": "[", "close": "]", "token": "delimiter.square" },
+    { "open": "(", "close": ")", "token": "delimiter.parenthesis" }
+  ],
+  "tokenizer": {
+    "root": [
+      ["@[a-zA-Z_$][\\w$]*", "tag"],
+      ["[a-zA-Z_$][\\w$]*", {
+        "cases": {
+          "@keywords": "keyword",
+          "@default": "identifier"
+        }
+      }],
+      { "include": "@whitespace" },
+      { "include": "@numbers" },
+      { "include": "@strings" },
+      ["=>", "delimiter"],
+      ["[{}()\\[\\]]", "@brackets"],
+      ["[;,.]", "delimiter"],
+      ["[=><!~?:&|+\\-*/^%]+", "operator"]
+    ],
+    "whitespace": [
+      ["[ \\t\\r\\n]+", "white"],
+      ["//.*$", "comment"],
+      ["/\\*", { "token": "comment.quote", "next": "@comment" }]
+    ],
+    "comment": [
+      ["[^/*]+", "comment"],
+      ["\\*/", { "token": "comment.quote", "next": "@pop" }],
+      ["[/*]", "comment"]
+    ],
+    "numbers": [
+      ["0[xX][0-9a-fA-F_]+n?", "number.hex"],
+      ["0[bB][01_]+n?", "number.binary"],
+      ["0[oO][0-7_]+n?", "number.octal"],
+      ["\\d[\\d_]*\\.\\d[\\d_]*([eE][\\-+]?\\d+)?", "number.float"],
+      ["\\d[\\d_]*([eE][\\-+]?\\d+)?n?", "number"]
+    ],
+    "strings": [
+      ["\"", { "token": "string.quote", "next": "@dqstring" }],
+      ["'", { "token": "string.quote", "next": "@sqstring" }],
+      ["`", { "token": "string.quote", "next": "@template" }]
+    ],
+    "dqstring": [
+      ["[^\\\\\"]+", "string"],
+      ["\\\\.", "string.escape"],
+      ["\"", { "token": "string.quote", "next": "@pop" }],
+      ["$", "string", "@pop"]
+    ],
+    "sqstring": [
+      ["[^\\\\']+", "string"],
+      ["\\\\.", "string.escape"],
+      ["'", { "token": "string.quote", "next": "@pop" }],
+      ["$", "string", "@pop"]
+    ],
+    "template": [
+      ["\\$\\{", { "token": "delimiter.bracket", "next": "@templateInterp" }],
+      ["[^\\\\`$]+", "string"],
+      ["\\\\.", "string.escape"],
+      ["\\$", "string"],
+      ["`", { "token": "string.quote", "next": "@pop" }]
+    ],
+    "templateInterp": [
+      ["\\}", { "token": "delimiter.bracket", "next": "@pop" }],
+      { "include": "@root" }
+    ]
+  }
+}
