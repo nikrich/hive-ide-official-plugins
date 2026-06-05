@@ -9,6 +9,7 @@ Official plugins for [Hive IDE](https://github.com/nikrich/hive-ide).
 | Java (jdtls) | [`java/`](./java) | `java-v0.1.0` |
 | Terraform (terraform-ls) | [`terraform/`](./terraform) | `terraform-v0.1.0` |
 | Python (Pyright) | [`python/`](./python) | `python-v0.1.0` |
+| TypeScript / JavaScript (typescript-language-server) | [`typescript/`](./typescript) | `typescript-v0.1.0` |
 | Hello (example) | [`examples/hello-plugin/`](./examples/hello-plugin) | — |
 
 ## Installing
