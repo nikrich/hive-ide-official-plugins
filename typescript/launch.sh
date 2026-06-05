@@ -16,7 +16,10 @@ fi
 
 # tsserver wiring: the server resolves require('typescript') from a dir
 # literally named 'typescript'. Point a symlink at the extracted package.
-if [ ! -e "${HERE}/server/ts/typescript" ]; then
+# Test with -L (is-symlink) not -e: -e follows the link and is false when
+# it dangles (e.g. package not yet extracted), which would make ln nest a
+# second link inside the existing one. ln -sfn is idempotent for a good link.
+if [ ! -L "${HERE}/server/ts/typescript" ]; then
   ln -sfn package "${HERE}/server/ts/typescript"
 fi
 

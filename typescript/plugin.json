@@ -45,6 +45,27 @@
         "args": [],
         "transport": "stdio",
         "cwd": "${pluginDir}"
+      },
+      {
+        "language": "typescriptreact",
+        "command": "${pluginDir}/launch.sh",
+        "args": [],
+        "transport": "stdio",
+        "cwd": "${pluginDir}"
+      },
+      {
+        "language": "javascript",
+        "command": "${pluginDir}/launch.sh",
+        "args": [],
+        "transport": "stdio",
+        "cwd": "${pluginDir}"
+      },
+      {
+        "language": "javascriptreact",
+        "command": "${pluginDir}/launch.sh",
+        "args": [],
+        "transport": "stdio",
+        "cwd": "${pluginDir}"
       }
     ]
   },
