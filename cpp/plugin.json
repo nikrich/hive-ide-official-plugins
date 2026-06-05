@@ -1,0 +1,82 @@
+{
+  "id": "hive-ide-official-plugins/cpp",
+  "name": "C / C++",
+  "version": "0.1.0",
+  "description": "C and C++ language support via clangd (LLVM). Bundles the language server; no runtime dependency.",
+  "publisher": "hive-ide-official-plugins",
+  "engines": {
+    "hive": "^0.1.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "c",
+        "extensions": [
+          ".c",
+          ".h"
+        ],
+        "aliases": [
+          "C"
+        ],
+        "configuration": "./language-configuration.json",
+        "grammar": "./grammar.json"
+      },
+      {
+        "id": "cpp",
+        "extensions": [
+          ".cpp",
+          ".cc",
+          ".cxx",
+          ".c++",
+          ".hpp",
+          ".hh",
+          ".hxx",
+          ".h++"
+        ],
+        "aliases": [
+          "C++"
+        ],
+        "configuration": "./language-configuration.json",
+        "grammar": "./grammar.json"
+      }
+    ],
+    "languageServers": [
+      {
+        "language": "c",
+        "command": "${pluginDir}/launch.sh",
+        "args": [],
+        "transport": "stdio",
+        "cwd": "${pluginDir}"
+      },
+      {
+        "language": "cpp",
+        "command": "${pluginDir}/launch.sh",
+        "args": [],
+        "transport": "stdio",
+        "cwd": "${pluginDir}"
+      }
+    ]
+  },
+  "setup": {
+    "downloads": [
+      {
+        "url": "https://github.com/clangd/clangd/releases/download/22.1.0/clangd-mac-22.1.0.zip",
+        "extractTo": "./server/mac",
+        "sha256": "71eddc5303da9a5bc5e8b509488b5b2c5acf45f20e33b8394e71a12a56d67198",
+        "archive": "zip"
+      },
+      {
+        "url": "https://github.com/clangd/clangd/releases/download/22.1.0/clangd-linux-22.1.0.zip",
+        "extractTo": "./server/linux_amd64",
+        "sha256": "c54e57dbff3ccc9e8352367ddb7030ad3f624073ec58c7477424e7919f578572",
+        "archive": "zip"
+      },
+      {
+        "url": "https://github.com/clangd/clangd/releases/download/22.1.0/clangd-windows-22.1.0.zip",
+        "extractTo": "./server/windows_amd64",
+        "sha256": "e31e271fe11f6dcd7cf87ca74be4a12788ff8ce5a0b07762583e335c058e939a",
+        "archive": "zip"
+      }
+    ]
+  }
+}

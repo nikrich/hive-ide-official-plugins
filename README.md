@@ -11,6 +11,7 @@ Official plugins for [Hive IDE](https://github.com/nikrich/hive-ide).
 | Python (Pyright) | [`python/`](./python) | `python-v0.1.0` |
 | TypeScript / JavaScript (typescript-language-server) | [`typescript/`](./typescript) | `typescript-v0.1.0` |
 | Rust (rust-analyzer) | [`rust/`](./rust) | `rust-v0.1.0` |
+| C / C++ (clangd) | [`cpp/`](./cpp) | `cpp-v0.1.0` |
 | Hello (example) | [`examples/hello-plugin/`](./examples/hello-plugin) | — |
 
 ## Installing
