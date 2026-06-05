@@ -17,11 +17,21 @@ DIR="${HERE}/server/${OS}_${ARCH}"
 BIN="${DIR}/rust-analyzer"
 
 # Unix assets ship as a single gzipped binary; decompress on first run.
+# Decompress to a temp file and move into place atomically — a failed or
+# truncated gunzip must not leave a partial binary at $BIN, which would be
+# treated as "already extracted" forever and fail exec on every launch.
 if [ ! -f "$BIN" ]; then
   GZ="$(ls "${DIR}/"*.gz 2>/dev/null | head -1 || true)"
   if [ -n "$GZ" ]; then
-    gunzip -c "$GZ" > "$BIN"
-    chmod +x "$BIN"
+    TMP="${BIN}.tmp.$$"
+    if gunzip -c "$GZ" > "$TMP"; then
+      chmod +x "$TMP"
+      mv -f "$TMP" "$BIN"
+    else
+      rm -f "$TMP"
+      echo "Hive IDE Rust plugin: failed to decompress ${GZ}. The download may be corrupt; toggle the plugin off and on to retry." >&2
+      exit 1
+    fi
   fi
 fi
 
