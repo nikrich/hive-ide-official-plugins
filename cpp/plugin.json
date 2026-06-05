@@ -42,6 +42,13 @@
     ],
     "languageServers": [
       {
+        "language": "c",
+        "command": "${pluginDir}/launch.sh",
+        "args": [],
+        "transport": "stdio",
+        "cwd": "${pluginDir}"
+      },
+      {
         "language": "cpp",
         "command": "${pluginDir}/launch.sh",
         "args": [],
