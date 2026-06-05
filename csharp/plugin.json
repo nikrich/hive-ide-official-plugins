@@ -1,0 +1,68 @@
+{
+  "id": "hive-ide-official-plugins/csharp",
+  "name": "C#",
+  "version": "0.1.0",
+  "description": "C# language support via OmniSharp-roslyn. Bundles the language server; requires the .NET 6+ runtime on PATH.",
+  "publisher": "hive-ide-official-plugins",
+  "engines": {
+    "hive": "^0.1.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "csharp",
+        "extensions": [
+          ".cs",
+          ".csx"
+        ],
+        "aliases": [
+          "C#"
+        ],
+        "configuration": "./language-configuration.json",
+        "grammar": "./grammar.json"
+      }
+    ],
+    "languageServers": [
+      {
+        "language": "csharp",
+        "command": "${pluginDir}/launch.sh",
+        "args": [],
+        "transport": "stdio"
+      }
+    ]
+  },
+  "setup": {
+    "downloads": [
+      {
+        "url": "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v1.39.15/omnisharp-osx-arm64-net6.0.zip",
+        "extractTo": "./server/darwin_arm64",
+        "sha256": "678be5bb972d04bbf5e1426e5e7562261e176fa781784d0f13877d8c4391ec3e",
+        "archive": "zip"
+      },
+      {
+        "url": "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v1.39.15/omnisharp-osx-x64-net6.0.zip",
+        "extractTo": "./server/darwin_amd64",
+        "sha256": "6ac1f8b1dfb1e4515f61d120f2cb5ab8404134ec62c441e4ab70ef30e0ac6d07",
+        "archive": "zip"
+      },
+      {
+        "url": "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v1.39.15/omnisharp-linux-x64-net6.0.zip",
+        "extractTo": "./server/linux_amd64",
+        "sha256": "41838cd21abbf01d7ab41fd53d19297a6f3ec5a07bb75ec139b0ead4195d1239",
+        "archive": "zip"
+      },
+      {
+        "url": "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v1.39.15/omnisharp-linux-arm64-net6.0.zip",
+        "extractTo": "./server/linux_arm64",
+        "sha256": "376e2007b9a828e7ef58aac1c3397723e0060c8251f29a86b0d8d6747c000e85",
+        "archive": "zip"
+      },
+      {
+        "url": "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v1.39.15/omnisharp-win-x64-net6.0.zip",
+        "extractTo": "./server/windows_amd64",
+        "sha256": "b03eb6b9ac6446fce803b87c0965e94cef5570cc86f47bfefe2f60933d8658e8",
+        "archive": "zip"
+      }
+    ]
+  }
+}
