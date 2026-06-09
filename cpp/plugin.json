@@ -1,11 +1,11 @@
 {
   "id": "hive-ide-official-plugins/cpp",
   "name": "C / C++",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "C and C++ language support via clangd (LLVM). Bundles the language server; no runtime dependency.",
   "publisher": "hive-ide-official-plugins",
   "engines": {
-    "hive": "^0.1.0"
+    "hive": ">=0.1.0 <1.0.0"
   },
   "contributes": {
     "languages": [

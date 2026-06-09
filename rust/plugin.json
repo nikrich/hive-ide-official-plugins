@@ -1,11 +1,11 @@
 {
   "id": "hive-ide-official-plugins/rust",
   "name": "Rust",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Rust language support via rust-analyzer. Downloads a prebuilt rust-analyzer binary per platform; a Rust toolchain (rustup/cargo) on PATH is recommended for full analysis.",
   "publisher": "hive-ide-official-plugins",
   "engines": {
-    "hive": "^0.1.0"
+    "hive": ">=0.1.0 <1.0.0"
   },
   "contributes": {
     "languages": [

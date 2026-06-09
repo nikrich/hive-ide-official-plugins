@@ -1,11 +1,11 @@
 {
   "id": "hive-ide-official-plugins/java",
   "name": "Java",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Java language support via Eclipse JDT Language Server (jdtls). Requires Java 21+ on PATH.",
   "publisher": "hive-ide-official-plugins",
   "engines": {
-    "hive": "^0.1.0"
+    "hive": ">=0.1.0 <1.0.0"
   },
   "contributes": {
     "languages": [
