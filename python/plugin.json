@@ -1,11 +1,11 @@
 {
   "id": "hive-ide-official-plugins/python",
   "name": "Python",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Python language support via Pyright (Microsoft). Bundles the language server; requires Node.js 18+ on PATH.",
   "publisher": "hive-ide-official-plugins",
   "engines": {
-    "hive": "^0.1.0"
+    "hive": ">=0.1.0 <1.0.0"
   },
   "contributes": {
     "languages": [

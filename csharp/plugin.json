@@ -1,11 +1,11 @@
 {
   "id": "hive-ide-official-plugins/csharp",
   "name": "C#",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "C# language support via OmniSharp-roslyn. Bundles the language server; requires the .NET 6+ runtime on PATH.",
   "publisher": "hive-ide-official-plugins",
   "engines": {
-    "hive": "^0.1.0"
+    "hive": ">=0.1.0 <1.0.0"
   },
   "contributes": {
     "languages": [
